@@ -33,8 +33,49 @@ if(BUILD_TESTING)
 endif()
 
 install(
-  DIRECTORY config description launch worlds
+  DIRECTORY config description launch
   DESTINATION share/${PROJECT_NAME}
+)
+# Install launch files
+install(DIRECTORY
+  launch/
+  DESTINATION share/${PROJECT_NAME}/launch
+)
+
+# Install config files (nếu bạn muốn dùng rviz, nav2 params, ...)
+install(DIRECTORY
+  config/
+  DESTINATION share/${PROJECT_NAME}/config
+)
+
+# Install description (nếu dùng URDF/Xacro)
+install(DIRECTORY
+  description/
+  DESTINATION share/${PROJECT_NAME}/description
+)
+
+install(PROGRAMS
+  launch/plc_tcp_bridge.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME plc_tcp_bridge
+)
+
+install(PROGRAMS
+  launch/plc_control_node.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME plc_control_node
+)
+
+install(PROGRAMS
+  launch/map_speckle_filter.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME map_speckle_filter
+)
+
+install(PROGRAMS
+  launch/odom_axis_corrector.py
+  DESTINATION lib/${PROJECT_NAME}
+  RENAME odom_axis_corrector
 )
 
 ament_package()

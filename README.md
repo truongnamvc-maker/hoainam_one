@@ -1,7 +1,24 @@
-## Robot Package Template
+## hoainam_one
 
-This is a GitHub template. You can make your own copy by clicking the green "Use this template" button.
+Package nay duoc toi gian de phuc vu 3 nhu cau chinh:
 
-It is recommended that you keep the repo/package name the same, but if you do change it, ensure you do a "Find all" using your IDE (or the built-in GitHub IDE by hitting the `.` key) and rename all instances of `hoainam_one` to whatever your project's name is.
+- SLAM voi `slam_toolbox`
+- Navigation voi `nav2`
+- Dieu khien robot qua PLC
 
-Note that each directory currently has at least one file in it to ensure that git tracks the files (and, consequently, that a fresh clone has direcctories present for CMake to find). These example files can be removed if required (and the directories can be removed if `CMakeLists.txt` is adjusted accordingly).
+Thanh phan da giu lai:
+
+- `launch/plc_slam_nav.launch.py`
+- `launch/plc_slam_nav_service.launch.py`
+- `launch/navigation_launch.py`
+- `launch/localization_launch.py`
+- `launch/plc_control_node.py`
+- `launch/plc_tcp_bridge.py`
+- `launch/view_sllidar_c1_launch.py`
+- `launch/rsp.launch.py`
+- `description/robot.urdf.xacro`
+- `config/mapper_params_online_async.yaml`
+- `config/nav2_params.yaml`
+- `config/map.rviz`
+
+Thanh phan camera, Gazebo/simulation, joystick va cac launch thu nghiem da duoc loai bo.
