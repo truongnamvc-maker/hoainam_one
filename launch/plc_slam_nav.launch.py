@@ -4,6 +4,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, LogInfo
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
@@ -14,6 +15,7 @@ def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     slam_params_file = LaunchConfiguration('slam_params_file')
+    enable_rviz = LaunchConfiguration('enable_rviz', default='true')
 
     default_slam_params = os.path.join(pkg_dir, 'config', 'mapper_params_online_async.yaml')
 
@@ -55,6 +57,7 @@ def generate_launch_description():
         executable='rviz2',
         name='rviz2',
         arguments=['-d', rviz_config_file] if os.path.exists(rviz_config_file) else [],
+        condition=IfCondition(enable_rviz),
         output='screen'
     )
 
@@ -63,6 +66,11 @@ def generate_launch_description():
 
         DeclareLaunchArgument('use_sim_time', default_value='false'),
         DeclareLaunchArgument('slam_params_file', default_value=default_slam_params),
+        DeclareLaunchArgument(
+            'enable_rviz',
+            default_value='true',
+            description='Launch RViz2 on this machine'
+        ),
 
         rsp_launch,
         sllidar_launch,

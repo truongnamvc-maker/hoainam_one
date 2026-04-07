@@ -15,6 +15,7 @@ def generate_launch_description():
 
     use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     slam_params_file = LaunchConfiguration('slam_params_file')
+    enable_rviz = LaunchConfiguration('enable_rviz', default='true')
     serial_port = LaunchConfiguration('serial_port', default='/dev/ttyUSB0')
     serial_baudrate = LaunchConfiguration('serial_baudrate', default='460800')
     lidar_frame = LaunchConfiguration('lidar_frame', default='laser_frame')
@@ -82,6 +83,7 @@ def generate_launch_description():
         executable='rviz2',
         name='rviz2',
         arguments=['-d', rviz_config_file] if os.path.exists(rviz_config_file) else [],
+        condition=IfCondition(enable_rviz),
         output='screen'
     )
 
@@ -149,6 +151,11 @@ def generate_launch_description():
             'slam_params_file',
             default_value=default_slam_params,
             description='Full path to the SLAM Toolbox parameters file'
+        ),
+        DeclareLaunchArgument(
+            'enable_rviz',
+            default_value='true',
+            description='Launch RViz2 on this machine'
         ),
         DeclareLaunchArgument(
             'serial_port',
